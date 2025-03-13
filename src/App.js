@@ -1,20 +1,25 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import supabase from './supabaseClient';
+import Login from './components/Login';
+import Presentation from './components/Presentation';
+import PublicProjects from './components/PublicProjects';
+import Dashboard from './components/Dashboard';
+import Navigation from './components/Navigation';
+import theme from './theme';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for initial user session
+    // Check active sessions and sets the user
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      setLoading(false);
     });
 
-    // Listen for auth changes
+    // Listen for changes on auth state
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
@@ -22,48 +27,80 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const fetchProjects = async () => {
-    const { data, error } = await supabase.from('projects').select('*');
-    if (error) {
-      console.error('Error fetching projects:', error);
-    } else {
-      setProjects(data);
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      setUser(null);
+    } catch (error) {
+      console.error('Error signing out:', error.message);
     }
   };
 
-  const handleCreateProject = async (projectData) => {
-    const { error } = await supabase
-      .from('projects')
-      .insert([projectData]);
-    
-    if (error) {
-      console.error('Error creating project:', error);
-    } else {
-      fetchProjects(); // Refresh the projects list
-    }
-  };
+  if (loading) {
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingSpinner}>Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <h1>My Portfolio</h1>
-      {!user ? (
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-        />
-      ) : (
-        <div>
-          <p>Welcome, {user.email}</p>
-          {/* Add your project creation form and project list here */}
-          <ul>
-            {projects.map((project) => (
-              <li key={project.id}>{project.title}</li>
-            ))}
-          </ul>
+    <Router>
+      <div style={styles.app}>
+        <Navigation user={user} onSignOut={handleSignOut} />
+        <div style={styles.content}>
+          <Routes>
+            <Route path="/" element={<Presentation />} />
+            <Route path="/projects" element={<PublicProjects />} />
+            <Route 
+              path="/dashboard" 
+              element={
+                user ? (
+                  <Dashboard user={user} />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              } 
+            />
+            <Route 
+              path="/login" 
+              element={
+                !user ? (
+                  <Login />
+                ) : (
+                  <Navigate to="/dashboard" replace />
+                )
+              } 
+            />
+          </Routes>
         </div>
-      )}
-    </div>
+      </div>
+    </Router>
   );
 }
+
+const styles = {
+  app: {
+    minHeight: '100vh',
+    backgroundColor: theme.colors.background
+  },
+  content: {
+    paddingTop: '1rem'
+  },
+  loadingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    backgroundColor: theme.colors.background
+  },
+  loadingSpinner: {
+    padding: '20px',
+    borderRadius: '12px',
+    backgroundColor: theme.colors.white,
+    color: theme.colors.primary,
+    boxShadow: theme.shadows.medium
+  }
+};
 
 export default App;
