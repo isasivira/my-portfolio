@@ -1,5 +1,6 @@
 import React from 'react';
 import theme from '../theme';
+import './Presentation.css';
 
 const Presentation = () => {
   return (
@@ -11,7 +12,7 @@ const Presentation = () => {
         <div style={styles.decorativeHearts}>♡</div>
       </header>
 
-      <section style={styles.section}>
+      <section className="presentation-section" style={styles.section}>
         <div style={styles.content}>
           <div style={styles.sectionIcon}>🌸</div>
           <h2 style={styles.sectionTitle}>About Me</h2>
@@ -23,7 +24,7 @@ const Presentation = () => {
         </div>
       </section>
 
-      <section style={styles.section}>
+      <section className="presentation-section" style={styles.section}>
         <div style={styles.content}>
           <div style={styles.sectionIcon}>✨</div>
           <h2 style={styles.sectionTitle}>My Work</h2>
@@ -43,34 +44,48 @@ const styles = {
     minHeight: 'calc(100vh - 64px)',
     backgroundColor: theme.colors.background,
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    '@media (max-width: 768px)': {
+      minHeight: 'calc(100vh - 56px)'
+    }
   },
   header: {
     textAlign: 'center',
     padding: '80px 20px',
     background: theme.colors.gradients.primary,
     color: theme.colors.white,
-    position: 'relative'
+    position: 'relative',
+    '@media (max-width: 768px)': {
+      padding: '60px 16px'
+    }
   },
   title: {
     fontSize: '3.5rem',
     marginBottom: '16px',
     fontWeight: '700',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)',
-    animation: theme.animation.float
+    animation: theme.animation.float,
+    '@media (max-width: 768px)': {
+      fontSize: '2.5rem',
+      marginBottom: '12px'
+    }
   },
   subtitle: {
     fontSize: '1.5rem',
     color: theme.colors.white,
     fontWeight: '300',
     opacity: 0.9,
-    marginBottom: '20px'
+    marginBottom: '20px',
+    '@media (max-width: 768px)': {
+      fontSize: '1.25rem',
+      marginBottom: '16px'
+    }
   },
   section: {
     padding: '60px 20px',
     position: 'relative',
-    '&:nth-child(even)': {
-      background: theme.colors.gradients.secondary
+    '@media (max-width: 768px)': {
+      padding: '40px 16px'
     }
   },
   content: {
@@ -82,6 +97,10 @@ const styles = {
     boxShadow: theme.shadows.medium,
     position: 'relative',
     transition: 'transform 0.3s ease-in-out',
+    '@media (max-width: 768px)': {
+      padding: '24px',
+      borderRadius: theme.borderRadius.medium
+    },
     '&:hover': {
       transform: 'translateY(-5px)',
       boxShadow: theme.shadows.large
@@ -91,7 +110,11 @@ const styles = {
     fontSize: '2rem',
     textAlign: 'center',
     marginBottom: '20px',
-    animation: theme.animation.bounce
+    animation: theme.animation.bounce,
+    '@media (max-width: 768px)': {
+      fontSize: '1.75rem',
+      marginBottom: '16px'
+    }
   },
   sectionTitle: {
     fontSize: '2.2rem',
@@ -99,6 +122,10 @@ const styles = {
     marginBottom: '24px',
     textAlign: 'center',
     position: 'relative',
+    '@media (max-width: 768px)': {
+      fontSize: '1.75rem',
+      marginBottom: '20px'
+    },
     '&:after': {
       content: '""',
       display: 'block',
@@ -106,21 +133,34 @@ const styles = {
       height: '3px',
       background: theme.colors.gradients.primary,
       margin: '10px auto 0',
-      borderRadius: theme.borderRadius.small
+      borderRadius: theme.borderRadius.small,
+      '@media (max-width: 768px)': {
+        width: '40px',
+        margin: '8px auto 0'
+      }
     }
   },
   text: {
     fontSize: '1.1rem',
     lineHeight: '1.8',
     color: theme.colors.text,
-    textAlign: 'center'
+    textAlign: 'center',
+    '@media (max-width: 768px)': {
+      fontSize: '1rem',
+      lineHeight: '1.6'
+    }
   },
   decorativeStars: {
     position: 'absolute',
     top: '20px',
     right: '20px',
     fontSize: '24px',
-    animation: theme.animation.sparkle
+    animation: theme.animation.sparkle,
+    '@media (max-width: 768px)': {
+      top: '16px',
+      right: '16px',
+      fontSize: '20px'
+    }
   },
   decorativeHearts: {
     position: 'absolute',
@@ -128,7 +168,12 @@ const styles = {
     left: '20px',
     fontSize: '24px',
     color: theme.colors.decorative.hearts,
-    animation: theme.animation.float
+    animation: theme.animation.float,
+    '@media (max-width: 768px)': {
+      bottom: '16px',
+      left: '16px',
+      fontSize: '20px'
+    }
   },
   decorativeDots: {
     position: 'absolute',
@@ -139,7 +184,12 @@ const styles = {
     background: `radial-gradient(circle, ${theme.colors.decorative.dots} 20%, transparent 20%) 0 0,
                 radial-gradient(circle, ${theme.colors.decorative.dots} 20%, transparent 20%) 10px 10px`,
     backgroundSize: '20px 20px',
-    opacity: 0.2
+    opacity: 0.2,
+    '@media (max-width: 768px)': {
+      width: '40px',
+      height: '40px',
+      backgroundSize: '16px 16px'
+    }
   }
 };
 

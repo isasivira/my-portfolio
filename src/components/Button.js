@@ -5,113 +5,86 @@ const Button = ({
   children, 
   onClick, 
   variant = 'primary', 
-  size = 'medium',
-  ...props 
+  disabled = false,
+  fullWidth = false,
+  type = 'button'
 }) => {
   const getVariantStyles = () => {
     switch (variant) {
-      case 'primary':
-        return {
-          background: theme.colors.gradients.primary,
-          color: theme.colors.white,
-          '&:hover': {
-            transform: 'translateY(-2px) scale(1.02)',
-            boxShadow: `${theme.shadows.medium}, 0 0 10px ${theme.colors.primary}40`
-          }
-        };
       case 'secondary':
         return {
-          background: theme.colors.gradients.secondary,
-          color: theme.colors.primary,
-          border: `2px solid ${theme.colors.primary}20`,
-          '&:hover': {
-            transform: 'translateY(-2px) scale(1.02)',
-            boxShadow: `${theme.shadows.medium}, 0 0 10px ${theme.colors.secondary}40`
+          backgroundColor: theme.colors.button.secondary,
+          color: theme.colors.text,
+          ':hover': {
+            backgroundColor: 'rgba(255, 182, 193, 0.2)'
           }
         };
       case 'danger':
         return {
-          background: theme.colors.button.danger,
-          color: theme.colors.white,
-          '&:hover': {
-            transform: 'translateY(-2px) scale(1.02)',
-            boxShadow: `${theme.shadows.medium}, 0 0 10px ${theme.colors.button.danger}40`
+          backgroundColor: theme.colors.button.danger,
+          color: '#ff6347',
+          ':hover': {
+            backgroundColor: 'rgba(255, 99, 71, 0.2)'
           }
         };
       default:
-        return {};
-    }
-  };
-
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'small':
-        return { 
-          padding: '8px 16px', 
-          fontSize: '0.875rem',
-          borderRadius: theme.borderRadius.small
-        };
-      case 'large':
-        return { 
-          padding: '14px 28px', 
-          fontSize: '1.125rem',
-          borderRadius: theme.borderRadius.large
-        };
-      default:
-        return { 
-          padding: '10px 20px', 
-          fontSize: '1rem',
-          borderRadius: theme.borderRadius.medium
+        return {
+          backgroundColor: theme.colors.button.primary,
+          color: theme.colors.white,
+          ':hover': {
+            backgroundColor: theme.colors.accent
+          }
         };
     }
   };
 
   return (
     <button
+      type={type}
       onClick={onClick}
+      disabled={disabled}
       style={{
         ...styles.button,
         ...getVariantStyles(),
-        ...getSizeStyles(),
-        ...props.style,
+        width: fullWidth ? '100%' : 'auto',
+        opacity: disabled ? 0.6 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        '@media (max-width: 768px)': {
+          padding: '8px 16px',
+          fontSize: '14px'
+        }
       }}
-      {...props}
     >
-      <span style={styles.content}>
-        {variant === 'primary' && <span style={styles.sparkle}>✨</span>}
-        {children}
-      </span>
+      {children}
     </button>
   );
 };
 
 const styles = {
   button: {
-    border: 'none',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    boxShadow: theme.shadows.small,
-    position: 'relative',
-    overflow: 'hidden',
-    '&:active': {
-      transform: 'translateY(0) scale(0.98)',
-      boxShadow: theme.shadows.small
-    },
-    '&:focus': {
-      outline: 'none',
-      boxShadow: `${theme.shadows.medium}, 0 0 0 2px ${theme.colors.primary}30`
-    }
-  },
-  content: {
-    display: 'flex',
+    display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '8px'
-  },
-  sparkle: {
-    fontSize: '0.8em',
-    animation: theme.animation.sparkle
+    gap: '8px',
+    padding: '10px 20px',
+    borderRadius: theme.borderRadius.medium,
+    fontSize: '16px',
+    fontWeight: '500',
+    border: 'none',
+    transition: 'all 0.3s ease-in-out',
+    boxShadow: theme.shadows.small,
+    ':hover': {
+      transform: 'translateY(-2px)',
+      boxShadow: theme.shadows.medium
+    },
+    ':active': {
+      transform: 'translateY(0)',
+      boxShadow: theme.shadows.small
+    },
+    ':focus': {
+      outline: 'none',
+      boxShadow: `0 0 0 3px ${theme.colors.primary}40`
+    }
   }
 };
 

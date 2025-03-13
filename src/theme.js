@@ -1,4 +1,10 @@
 const theme = {
+  breakpoints: {
+    mobile: '320px',
+    tablet: '768px',
+    laptop: '1024px',
+    desktop: '1440px'
+  },
   colors: {
     primary: '#FFA5C0',         // Softer pink (main color)
     secondary: '#FFE2E9',       // Even lighter pink
@@ -44,6 +50,14 @@ const theme = {
     bounce: 'bounce 0.6s infinite',
     float: 'float 3s ease-in-out infinite',
     sparkle: 'sparkle 1.5s ease-in-out infinite'
+  },
+  spacing: {
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
+    xxl: '48px'
   }
 };
 

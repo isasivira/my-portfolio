@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Button from './Button';
 import supabase from '../supabaseClient';
+import theme from '../theme';
 
 const ProjectForm = ({ onSubmit, initialValues = {
   title: '',
@@ -16,9 +17,12 @@ const ProjectForm = ({ onSubmit, initialValues = {
   const { values, handleChange, handleSubmit } = useForm(initialValues);
 
   useEffect(() => {
-    // Fetch platforms and types when component mounts
+    console.log('ProjectForm initialValues:', initialValues);
+    console.log('ProjectForm current values:', values);
+  }, [initialValues, values]);
+
+  useEffect(() => {
     const fetchOptions = async () => {
-      // Fetch platforms
       const { data: platformsData, error: platformsError } = await supabase
         .from('platforms')
         .select('*');
@@ -26,11 +30,9 @@ const ProjectForm = ({ onSubmit, initialValues = {
       if (platformsError) {
         console.error('Error fetching platforms:', platformsError);
       } else {
-        console.log('Fetched platforms:', platformsData);
         setPlatforms(platformsData || []);
       }
 
-      // Fetch types
       const { data: typesData, error: typesError } = await supabase
         .from('type')
         .select('*');
@@ -38,7 +40,6 @@ const ProjectForm = ({ onSubmit, initialValues = {
       if (typesError) {
         console.error('Error fetching types:', typesError);
       } else {
-        console.log('Fetched types:', typesData);
         setTypes(typesData || []);
       }
     };
@@ -46,8 +47,23 @@ const ProjectForm = ({ onSubmit, initialValues = {
     fetchOptions();
   }, []);
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted with values:', values);
+    onSubmit(values);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
+    <form onSubmit={handleFormSubmit} style={styles.form}>
+      <div style={styles.formHeader}>
+        <h2 style={styles.formTitle}>
+          {initialValues.id ? '✨ Edit Project ✨' : '✨ Create New Project ✨'}
+        </h2>
+        <p style={styles.formSubtitle}>
+          {initialValues.id ? 'Update your project details' : 'Add a new project to your portfolio'}
+        </p>
+      </div>
+
       <div style={styles.formGroup}>
         <label htmlFor="title" style={styles.label}>Project Title *</label>
         <input
@@ -57,6 +73,7 @@ const ProjectForm = ({ onSubmit, initialValues = {
           value={values.title}
           onChange={handleChange}
           style={styles.input}
+          placeholder="Enter a creative title"
           required
         />
       </div>
@@ -69,6 +86,7 @@ const ProjectForm = ({ onSubmit, initialValues = {
           value={values.description}
           onChange={handleChange}
           style={{ ...styles.input, minHeight: '100px' }}
+          placeholder="Tell us about your project..."
         />
       </div>
 
@@ -83,14 +101,11 @@ const ProjectForm = ({ onSubmit, initialValues = {
         >
           <option value="">Select Platform</option>
           {platforms && platforms.length > 0 ? (
-            platforms.map(platform => {
-              console.log('Rendering platform option:', platform);
-              return (
-                <option key={platform.id} value={platform.id}>
-                  {platform.name}
-                </option>
-              );
-            })
+            platforms.map(platform => (
+              <option key={platform.id} value={platform.id}>
+                {platform.name}
+              </option>
+            ))
           ) : (
             <option value="" disabled>Loading platforms...</option>
           )}
@@ -108,14 +123,11 @@ const ProjectForm = ({ onSubmit, initialValues = {
         >
           <option value="">Select Type</option>
           {types && types.length > 0 ? (
-            types.map(type => {
-              console.log('Rendering type option:', type);
-              return (
-                <option key={type.id} value={type.id}>
-                  {type.name}
-                </option>
-              );
-            })
+            types.map(type => (
+              <option key={type.id} value={type.id}>
+                {type.name}
+              </option>
+            ))
           ) : (
             <option value="" disabled>Loading types...</option>
           )}
@@ -149,7 +161,7 @@ const ProjectForm = ({ onSubmit, initialValues = {
 
       <div style={styles.buttonGroup}>
         <Button type="submit" variant="primary">
-          Create Project
+          {initialValues.id ? '✨ Update Project' : '✨ Create Project'}
         </Button>
       </div>
     </form>
@@ -160,31 +172,86 @@ const styles = {
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '24px',
     maxWidth: '500px',
     margin: '0 auto',
     padding: '20px',
+    '@media (max-width: 768px)': {
+      padding: '16px',
+      gap: '20px'
+    }
+  },
+  formHeader: {
+    textAlign: 'center',
+    marginBottom: '10px',
+    '@media (max-width: 768px)': {
+      marginBottom: '8px'
+    }
+  },
+  formTitle: {
+    fontSize: '24px',
+    color: theme.colors.primary,
+    margin: '0 0 8px 0',
+    fontWeight: '600',
+    '@media (max-width: 768px)': {
+      fontSize: '20px',
+      margin: '0 0 6px 0'
+    }
+  },
+  formSubtitle: {
+    fontSize: '14px',
+    color: theme.colors.textLight,
+    margin: 0,
+    '@media (max-width: 768px)': {
+      fontSize: '12px'
+    }
   },
   formGroup: {
     display: 'flex',
     flexDirection: 'column',
     gap: '8px',
+    '@media (max-width: 768px)': {
+      gap: '6px'
+    }
   },
   label: {
     fontSize: '0.875rem',
     fontWeight: '500',
-    color: '#374151',
+    color: theme.colors.text,
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+    '@media (max-width: 768px)': {
+      fontSize: '0.8125rem'
+    }
   },
   input: {
-    padding: '8px 12px',
-    borderRadius: '6px',
-    border: '1px solid #d1d5db',
+    padding: '12px 16px',
+    borderRadius: '12px',
+    border: '2px solid rgba(255, 182, 193, 0.3)',
     fontSize: '1rem',
     width: '100%',
     boxSizing: 'border-box',
+    backgroundColor: 'rgba(255, 182, 193, 0.05)',
+    transition: 'all 0.3s ease-in-out',
+    '@media (max-width: 768px)': {
+      padding: '10px 14px',
+      fontSize: '0.875rem',
+      borderRadius: '10px'
+    },
+    ':focus': {
+      outline: 'none',
+      borderColor: theme.colors.primary,
+      boxShadow: '0 0 0 3px rgba(255, 165, 192, 0.2)'
+    }
   },
   buttonGroup: {
     marginTop: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    '@media (max-width: 768px)': {
+      marginTop: '8px'
+    }
   },
 };
 
