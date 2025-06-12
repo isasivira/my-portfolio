@@ -1,0 +1,85 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* theme.spacing.sm */
+  padding: 12px 24px; /* theme.spacing.md, theme.spacing.lg */
+  border-radius: 8px; /* theme.borderRadius.medium */
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out; /* theme.animation.transition */
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  border: none; /* Default to no border, variants will add */
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2); /* Soft focus ring */
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-primary {
+  background-color: #E91E63; /* theme.colors.primary */
+  color: #FFFFFF; /* theme.colors.white */
+  border: 1px solid #E91E63;
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: #C2185B; /* theme.colors.primaryDark */
+  border-color: #C2185B;
+}
+
+.button-secondary {
+  background-color: #FCE4EC; /* theme.colors.primaryLight */
+  color: #E91E63; /* theme.colors.primary */
+  border: 1px solid #E91E63;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background-color: #E91E63; /* theme.colors.primary */
+  color: #FFFFFF;
+  border-color: #E91E63;
+}
+
+.button-danger {
+  background-color: rgba(211, 47, 47, 0.1); /* theme.colors.error with opacity */
+  color: #D32F2F; /* theme.colors.error */
+  border: 1px solid #D32F2F;
+}
+
+.button-danger:hover:not(:disabled) {
+  background-color: #D32F2F; /* theme.colors.error */
+  color: #FFFFFF;
+  border-color: #D32F2F;
+}
+
+.button-full-width {
+  width: 100%;
+}
+
+/* Responsive adjustments for Button */
+@media (max-width: 768px) {
+  .button {
+    padding: 10px 16px; /* theme.spacing.sm, theme.spacing.md */
+    font-size: 14px;
+    border-radius: 6px; /* theme.borderRadius.small */
+  }
+} 

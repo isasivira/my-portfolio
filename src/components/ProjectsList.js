@@ -184,39 +184,50 @@ const ProjectsList = ({ projects, fetchProjects }) => {
 
 const styles = {
   container: {
-    padding: '20px',
+    padding: theme.spacing.lg,
     maxWidth: '1200px',
-    margin: '0 auto'
+    margin: '0 auto',
+    fontFamily: theme.fonts.main,
+    color: theme.colors.text
   },
   projectsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '24px',
-    marginTop: '20px'
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: theme.spacing.lg,
+    marginTop: theme.spacing.lg,
+    '@media (max-width: 768px)': {
+      gridTemplateColumns: '1fr',
+      gap: theme.spacing.md
+    }
   },
   projectCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: '16px',
+    backgroundColor: theme.colors.cardBg,
+    borderRadius: theme.borderRadius.medium,
     overflow: 'hidden',
-    border: '1px solid rgba(255, 182, 193, 0.2)',
-    boxShadow: '0 4px 12px rgba(255, 182, 193, 0.1)',
-    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+    border: `1px solid ${theme.colors.border}`,
+    boxShadow: theme.shadows.small,
+    transition: theme.animation.transition,
     ':hover': {
       transform: 'translateY(-4px)',
-      boxShadow: '0 8px 24px rgba(255, 182, 193, 0.2)'
+      boxShadow: theme.shadows.medium
     }
   },
   imageContainer: {
     position: 'relative',
     width: '100%',
-    height: '200px',
-    overflow: 'hidden'
+    height: '180px',
+    overflow: 'hidden',
+    borderTopLeftRadius: theme.borderRadius.medium,
+    borderTopRightRadius: theme.borderRadius.medium
   },
   projectImage: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    transition: 'transform 0.3s ease-in-out'
+    transition: theme.animation.transition,
+    ':hover': {
+      transform: 'scale(1.05)'
+    }
   },
   imageOverlay: {
     position: 'absolute',
@@ -224,224 +235,222 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%)'
+    background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%)',
+    transition: theme.animation.transition
   },
   projectContent: {
-    padding: '20px'
+    padding: theme.spacing.md,
+    fontFamily: theme.fonts.main
   },
   editForm: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '12px'
+    gap: theme.spacing.md,
+    padding: theme.spacing.sm,
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.borderRadius.small,
+    border: `1px solid ${theme.colors.border}`
   },
   input: {
-    padding: '8px 12px',
-    borderRadius: '8px',
-    border: '1px solid rgba(255, 182, 193, 0.3)',
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
+    border: `1px solid ${theme.colors.border}`,
     fontSize: '16px',
     color: theme.colors.text,
-    backgroundColor: 'rgba(255, 182, 193, 0.05)',
-    transition: 'all 0.2s ease-in-out',
+    backgroundColor: theme.colors.white,
+    transition: theme.animation.transition,
+    fontFamily: theme.fonts.main,
     ':focus': {
       outline: 'none',
       borderColor: theme.colors.primary,
-      boxShadow: '0 0 0 2px rgba(255, 182, 193, 0.2)'
+      boxShadow: `0 0 0 2px ${theme.colors.primaryLight}`
     }
   },
   textarea: {
-    padding: '8px 12px',
-    borderRadius: '8px',
-    border: '1px solid rgba(255, 182, 193, 0.3)',
-    fontSize: '14px',
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
+    border: `1px solid ${theme.colors.border}`,
+    fontSize: '16px',
     color: theme.colors.text,
-    backgroundColor: 'rgba(255, 182, 193, 0.05)',
-    minHeight: '100px',
-    resize: 'vertical',
-    transition: 'all 0.2s ease-in-out',
+    backgroundColor: theme.colors.white,
+    transition: theme.animation.transition,
+    minHeight: '80px',
+    fontFamily: theme.fonts.main,
     ':focus': {
       outline: 'none',
       borderColor: theme.colors.primary,
-      boxShadow: '0 0 0 2px rgba(255, 182, 193, 0.2)'
+      boxShadow: `0 0 0 2px ${theme.colors.primaryLight}`
     }
   },
   editActions: {
     display: 'flex',
-    gap: '8px',
-    justifyContent: 'flex-end'
+    gap: theme.spacing.sm,
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing.sm
+  },
+  saveButton: {
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
+    fontSize: '14px',
+    fontWeight: '500',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundColor: theme.colors.primary,
+    color: theme.colors.white,
+    transition: theme.animation.transition,
+    boxShadow: theme.shadows.small,
+    fontFamily: theme.fonts.main,
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+    ':hover': {
+      backgroundColor: theme.colors.primaryDark,
+      transform: 'translateY(-1px)',
+      boxShadow: theme.shadows.medium
+    }
+  },
+  cancelButton: {
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
+    fontSize: '14px',
+    fontWeight: '500',
+    border: `1px solid ${theme.colors.border}`,
+    cursor: 'pointer',
+    backgroundColor: theme.colors.background,
+    color: theme.colors.text,
+    transition: theme.animation.transition,
+    boxShadow: theme.shadows.small,
+    fontFamily: theme.fonts.main,
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+    ':hover': {
+      backgroundColor: theme.colors.primaryLight,
+      color: theme.colors.primary,
+      transform: 'translateY(-1px)',
+      boxShadow: theme.shadows.medium
+    }
   },
   projectTitle: {
-    margin: '0 0 12px 0',
-    fontSize: '18px',
+    margin: `0 0 ${theme.spacing.xs} 0`,
+    fontSize: '20px',
     color: theme.colors.text,
-    fontWeight: '600'
+    fontWeight: '600',
+    fontFamily: theme.fonts.heading
   },
   projectMeta: {
     display: 'flex',
-    gap: '8px',
-    marginBottom: '12px',
-    flexWrap: 'wrap'
+    gap: theme.spacing.sm,
+    marginBottom: theme.spacing.sm,
+    flexWrap: 'wrap',
+    alignItems: 'center'
   },
   badge: {
-    backgroundColor: theme.colors.badge.bg,
-    color: theme.colors.badge.text,
-    padding: '4px 12px',
-    borderRadius: '12px',
+    backgroundColor: theme.colors.primaryLight,
+    color: theme.colors.primaryDark,
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
     fontSize: '0.75rem',
-    fontWeight: '500'
+    fontWeight: '500',
+    fontFamily: theme.fonts.main
   },
   date: {
     color: theme.colors.textLight,
     fontSize: '0.75rem',
     display: 'flex',
     alignItems: 'center',
-    gap: '4px'
+    gap: theme.spacing.xs,
+    fontFamily: theme.fonts.main
   },
   projectDescription: {
-    margin: '0',
+    margin: `0 0 ${theme.spacing.md} 0`,
     color: theme.colors.text,
     fontSize: '0.9em',
     lineHeight: '1.6',
-    marginBottom: '20px'
+    fontFamily: theme.fonts.main
   },
   projectActions: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '8px',
-    marginTop: '16px'
+    gap: theme.spacing.sm,
+    marginTop: theme.spacing.md
   },
   editButton: {
+    flex: 1,
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
-    padding: '6px 12px',
-    borderRadius: '8px',
-    fontSize: '13px',
+    justifyContent: 'center',
+    gap: theme.spacing.xs,
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
+    fontSize: '14px',
     fontWeight: '500',
-    border: 'none',
+    border: `1px solid ${theme.colors.border}`,
     cursor: 'pointer',
-    backgroundColor: 'rgba(255, 182, 193, 0.1)',
-    color: theme.colors.primary,
-    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    boxShadow: '0 2px 8px rgba(255, 182, 193, 0.2)',
+    backgroundColor: theme.colors.background,
+    color: theme.colors.text,
+    transition: theme.animation.transition,
+    boxShadow: theme.shadows.small,
+    fontFamily: theme.fonts.main,
     ':hover': {
-      backgroundColor: 'rgba(255, 182, 193, 0.2)',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(255, 182, 193, 0.3)',
-      '& span': {
-        transform: 'scale(1.1)'
-      }
-    },
-    ':active': {
-      transform: 'translateY(0)',
-      boxShadow: '0 2px 4px rgba(255, 182, 193, 0.1)'
-    }
-  },
-  saveButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    padding: '6px 12px',
-    borderRadius: '8px',
-    fontSize: '13px',
-    fontWeight: '500',
-    border: 'none',
-    cursor: 'pointer',
-    backgroundColor: 'rgba(144, 238, 144, 0.1)',
-    color: '#2e8b57',
-    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    boxShadow: '0 2px 8px rgba(144, 238, 144, 0.2)',
-    ':hover': {
-      backgroundColor: 'rgba(144, 238, 144, 0.2)',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(144, 238, 144, 0.3)',
-      '& span': {
-        transform: 'scale(1.1)'
-      }
-    },
-    ':active': {
-      transform: 'translateY(0)',
-      boxShadow: '0 2px 4px rgba(144, 238, 144, 0.1)'
-    }
-  },
-  cancelButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    padding: '6px 12px',
-    borderRadius: '8px',
-    fontSize: '13px',
-    fontWeight: '500',
-    border: 'none',
-    cursor: 'pointer',
-    backgroundColor: 'rgba(255, 99, 71, 0.1)',
-    color: '#ff6347',
-    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    boxShadow: '0 2px 8px rgba(255, 99, 71, 0.2)',
-    ':hover': {
-      backgroundColor: 'rgba(255, 99, 71, 0.2)',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(255, 99, 71, 0.3)',
-      '& span': {
-        transform: 'scale(1.1)'
-      }
-    },
-    ':active': {
-      transform: 'translateY(0)',
-      boxShadow: '0 2px 4px rgba(255, 99, 71, 0.1)'
+      backgroundColor: theme.colors.primaryLight,
+      color: theme.colors.primary,
+      transform: 'translateY(-1px)',
+      boxShadow: theme.shadows.medium
     }
   },
   deleteButton: {
+    flex: 1,
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
-    padding: '6px 12px',
-    borderRadius: '8px',
-    fontSize: '13px',
+    justifyContent: 'center',
+    gap: theme.spacing.xs,
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.borderRadius.small,
+    fontSize: '14px',
     fontWeight: '500',
-    border: 'none',
+    border: `1px solid ${theme.colors.error}`,
     cursor: 'pointer',
-    backgroundColor: 'rgba(255, 99, 71, 0.1)',
-    color: '#ff6347',
-    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    boxShadow: '0 2px 8px rgba(255, 99, 71, 0.2)',
+    backgroundColor: theme.colors.error,
+    color: theme.colors.white,
+    transition: theme.animation.transition,
+    boxShadow: theme.shadows.small,
+    fontFamily: theme.fonts.main,
     ':hover': {
-      backgroundColor: 'rgba(255, 99, 71, 0.2)',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(255, 99, 71, 0.3)',
-      '& span': {
-        transform: 'scale(1.1)'
-      }
-    },
-    ':active': {
-      transform: 'translateY(0)',
-      boxShadow: '0 2px 4px rgba(255, 99, 71, 0.1)'
+      backgroundColor: theme.colors.primaryDark,
+      transform: 'translateY(-1px)',
+      boxShadow: theme.shadows.medium
     }
   },
   buttonIcon: {
-    fontSize: '14px',
-    transition: 'transform 0.3s ease-in-out',
+    fontSize: '16px',
+    transition: theme.animation.transition,
     display: 'inline-block'
   },
   emptyState: {
     textAlign: 'center',
-    padding: '40px 20px',
-    backgroundColor: 'rgba(255, 182, 193, 0.05)',
-    borderRadius: '16px',
-    border: '2px dashed rgba(255, 182, 193, 0.3)'
+    padding: theme.spacing.xl,
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.borderRadius.large,
+    border: `2px dashed ${theme.colors.border}`,
+    color: theme.colors.textLight,
+    fontFamily: theme.fonts.main
   },
   emptyStateIcon: {
     fontSize: '48px',
-    marginBottom: '16px'
+    marginBottom: theme.spacing.md
   },
   emptyStateText: {
     fontSize: '18px',
     color: theme.colors.text,
-    margin: '0 0 8px 0'
+    margin: `0 0 ${theme.spacing.xs} 0`,
+    fontWeight: '500',
+    fontFamily: theme.fonts.heading
   },
   emptyStateSubtext: {
     fontSize: '14px',
     color: theme.colors.textLight,
-    margin: 0
+    margin: 0,
+    fontFamily: theme.fonts.main
   }
 };
 

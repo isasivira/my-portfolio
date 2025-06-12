@@ -6,7 +6,8 @@ import Presentation from './components/Presentation';
 import PublicProjects from './components/PublicProjects';
 import Dashboard from './components/Dashboard';
 import Navigation from './components/Navigation';
-import theme from './theme';
+import About from './components/About';
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,20 +39,21 @@ function App() {
 
   if (loading) {
     return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingSpinner}>Loading...</div>
+      <div className="loading-container">
+        <div className="loading-spinner">Loading...</div>
       </div>
     );
   }
 
   return (
     <Router>
-      <div style={styles.app}>
+      <div className="app">
         <Navigation user={user} onSignOut={handleSignOut} />
-        <div style={styles.content}>
+        <main className="content desktop-content-offset">
           <Routes>
             <Route path="/" element={<Presentation />} />
             <Route path="/projects" element={<PublicProjects />} />
+            <Route path="/about" element={<About />} />
             <Route 
               path="/dashboard" 
               element={
@@ -73,34 +75,10 @@ function App() {
               } 
             />
           </Routes>
-        </div>
+        </main>
       </div>
     </Router>
   );
 }
-
-const styles = {
-  app: {
-    minHeight: '100vh',
-    backgroundColor: theme.colors.background
-  },
-  content: {
-    paddingTop: '1rem'
-  },
-  loadingContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: theme.colors.background
-  },
-  loadingSpinner: {
-    padding: '20px',
-    borderRadius: '12px',
-    backgroundColor: theme.colors.white,
-    color: theme.colors.primary,
-    boxShadow: theme.shadows.medium
-  }
-};
 
 export default App;

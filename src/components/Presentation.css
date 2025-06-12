@@ -1,3 +1,85 @@
-.presentation-section:nth-child(even) {
-  background: linear-gradient(135deg, #FFE2E9 0%, #FFF9FB 100%);
+.presentation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  text-align: center;
+  background-color: #FFFFFF;
+  border-radius: 36px;
+  box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.08);
+  margin: 48px auto;
+  max-width: 1000px;
+  border: 1px solid #F0E0D0;
+}
+
+.presentation-title {
+  font-size: 64px;
+  font-weight: 800;
+  color: #C2185B;
+  margin-bottom: 24px;
+  animation: fadeIn 1s ease-out, slideInUp 1s ease-out;
+  font-family: "Inter", sans-serif;
+}
+
+.presentation-subtitle {
+  font-size: 28px;
+  color: #888888;
+  margin-bottom: 40px;
+  animation: slideInUp 1.2s ease-out;
+}
+
+.presentation-description {
+  max-width: 700px;
+  font-size: 19px;
+  line-height: 1.8;
+  color: #4A4A4A;
+  margin-bottom: 64px;
+  animation: fadeIn 1.5s ease-out;
+}
+
+.presentation-cta {
+  padding: 16px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  background-color: #FF6384;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: pulse 2s infinite;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.presentation-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
+  background-color: #E91E63;
+}
+
+@media (max-width: 768px) {
+  .presentation-container {
+    padding: 48px 24px;
+    margin: 32px auto;
+    border-radius: 24px;
+  }
+
+  .presentation-title {
+    font-size: 48px;
+  }
+
+  .presentation-subtitle {
+    font-size: 22px;
+  }
+
+  .presentation-description {
+    font-size: 17px;
+    margin-bottom: 48px;
+  }
+
+  .presentation-cta {
+    padding: 14px 32px;
+    font-size: 18px;
+  }
 } 

@@ -1,0 +1,52 @@
+.app {
+  min-height: 100vh;
+  background-color: #FDF8F0;
+  font-family: "Inter", sans-serif;
+  color: #4A4A4A;
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding-top: 72px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 24px;
+    margin-left: 0;
+    padding-top: 72px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FDF8F0;
+}
+
+.loading-spinner {
+  padding: 24px;
+  border-radius: 16px;
+  background-color: #FFFFFF;
+  color: #FF6384;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  animation: pulse 1.5s infinite;
+}
+
+.desktop-content-offset {
+  margin-left: 0;
+} 

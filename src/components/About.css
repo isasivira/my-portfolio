@@ -1,0 +1,125 @@
+.about-container {
+  max-width: 900px;
+  margin: 48px auto;
+  padding: 64px;
+  background-color: #FFFFFF;
+  border-radius: 36px;
+  box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", sans-serif;
+  color: #4A4A4A;
+  line-height: 1.8;
+  animation: fadeIn 0.8s ease-out;
+  border: 1px solid #F0E0D0;
+}
+
+.about-title {
+  font-size: 56px;
+  font-weight: 800;
+  color: #C2185B;
+  margin-bottom: 24px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.about-description {
+  font-size: 19px;
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #4A4A4A;
+}
+
+.about-skills {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  padding: 48px;
+  background-color: #FDF8F0;
+  border-radius: 24px;
+  border: 1px solid #F0E0D0;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.skills-title {
+  font-size: 38px;
+  font-weight: 700;
+  color: #FF6384;
+  margin-bottom: 24px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.skill-item {
+  background-color: #FFE8F0;
+  color: #C2185B;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid #FFC0CB;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.skill-item:hover {
+  background-color: #FF6384;
+  color: #FFFFFF;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.about-contact {
+  font-size: 19px;
+  text-align: center;
+  color: #888888;
+  margin-top: 64px;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 32px;
+    margin: 32px auto;
+    border-radius: 24px;
+  }
+
+  .about-title {
+    font-size: 40px;
+  }
+
+  .about-description {
+    font-size: 17px;
+    margin-bottom: 32px;
+  }
+
+  .about-skills {
+    padding: 32px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    border-radius: 16px;
+  }
+
+  .skills-title {
+    font-size: 32px;
+  }
+
+  .skill-item {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+
+  .about-contact {
+    font-size: 17px;
+    margin-top: 48px;
+  }
+} 

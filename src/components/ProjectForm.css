@@ -1,0 +1,110 @@
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* theme.spacing.lg */
+  max-width: 600px; /* Slightly wider form */
+  margin: 0 auto;
+  padding: 40px; /* Adjusted padding */
+  background-color: #FFFFFF; /* theme.colors.cardBg */
+  border-radius: 12px; /* theme.borderRadius.large */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12); /* theme.shadows.large */
+  border: 1px solid #E0E0E0; /* theme.colors.border */
+  font-family: "Inter", sans-serif;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 32px; /* theme.spacing.xl */
+}
+
+.form-title {
+  font-size: 32px; /* Larger title */
+  color: #C2185B; /* theme.colors.primaryDark */
+  margin: 0 0 8px 0; /* theme.spacing.sm */
+  font-weight: 700; /* Bolder */
+  font-family: "Inter", sans-serif;
+}
+
+.form-subtitle {
+  font-size: 18px;
+  color: #757575; /* theme.colors.textLight */
+  margin: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* theme.spacing.sm */
+}
+
+.label {
+  font-size: 15px;
+  color: #212121; /* theme.colors.text */
+  font-weight: 600;
+}
+
+.input {
+  padding: 12px 16px;
+  border-radius: 8px; /* theme.borderRadius.medium */
+  border: 1px solid #E0E0E0; /* theme.colors.border */
+  font-size: 16px;
+  color: #212121; /* theme.colors.text */
+  background-color: #FFFFFF;
+  transition: all 0.2s ease-in-out; /* theme.animation.transition */
+  font-family: "Inter", sans-serif;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #E91E63; /* theme.colors.primary */
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2); /* Soft focus ring */
+}
+
+.textarea.input {
+  min-height: 120px; /* Increased height for textarea */
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px; /* theme.spacing.md */
+  margin-top: 24px; /* theme.spacing.lg */
+}
+
+/* Responsive adjustments for ProjectForm */
+@media (max-width: 768px) {
+  .project-form {
+    padding: 24px; /* theme.spacing.lg */
+    gap: 16px; /* theme.spacing.md */
+    border-radius: 8px;
+  }
+
+  .form-header {
+    margin-bottom: 24px; /* theme.spacing.lg */
+  }
+
+  .form-title {
+    font-size: 28px;
+  }
+
+  .form-subtitle {
+    font-size: 16px;
+  }
+
+  .input {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .textarea.input {
+    min-height: 100px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+} 
