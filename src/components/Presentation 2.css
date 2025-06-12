@@ -1,0 +1,3 @@
+.presentation-section:nth-child(even) {
+  background: linear-gradient(135deg, #FFE2E9 0%, #FFF9FB 100%);
+} 
