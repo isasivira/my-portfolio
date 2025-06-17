@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import supabase from './supabaseClient';
 import Login from './components/Login';
-import Presentation from './components/Presentation';
+import Landing from './components/Landing';
 import PublicProjects from './components/PublicProjects';
 import Dashboard from './components/Dashboard';
 import Navigation from './components/Navigation';
@@ -51,7 +51,7 @@ function App() {
         <Navigation user={user} onSignOut={handleSignOut} />
         <main className="content desktop-content-offset">
           <Routes>
-            <Route path="/" element={<Presentation />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/projects" element={<PublicProjects />} />
             <Route path="/about" element={<About />} />
             <Route 

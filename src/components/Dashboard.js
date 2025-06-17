@@ -243,7 +243,7 @@ const Dashboard = ({ user }) => {
             <h1 className="projects-title">Your Projects</h1>
             <p className="subtitle">Manage and showcase your amazing work</p>
           </div>
-          <Button 
+          <Button
             onClick={() => {
               setShowProjectForm(true);
               setEditingProject(null);

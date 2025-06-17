@@ -6,10 +6,38 @@ import './Navigation.css';
 
 const Navigation = ({ user, onSignOut }) => {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.menu-content') && !event.target.closest('.menu-toggle')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMenuOpen]);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [window.location.pathname]);
 
   return (
     <>
       <div className="top-navigation">
+        <button 
+          className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         <div className="menu-header">
           <Link to="/" className="logo">
             <span className="logo-icon">✨</span>
@@ -17,7 +45,7 @@ const Navigation = ({ user, onSignOut }) => {
           </Link>
         </div>
 
-        <div className="menu-content">
+        <div className={`menu-content ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="menu-link">
             <span className="link-icon">🏠</span>
             Home

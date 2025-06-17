@@ -6,6 +6,7 @@
   display: flex;
   overflow-x: hidden;
   flex-direction: column;
+  width: 100%;
 }
 
 .content {
@@ -17,6 +18,17 @@
   z-index: 1;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   padding-top: 72px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    padding: 40px;
+    padding-top: 72px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -27,12 +39,20 @@
   }
 }
 
+@media (max-width: 480px) {
+  .content {
+    padding: 16px;
+    padding-top: 64px;
+  }
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #FDF8F0;
+  width: 100%;
 }
 
 .loading-spinner {
@@ -47,6 +67,25 @@
   animation: pulse 1.5s infinite;
 }
 
+@media (max-width: 480px) {
+  .loading-spinner {
+    padding: 16px;
+    font-size: 16px;
+  }
+}
+
 .desktop-content-offset {
   margin-left: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 } 
