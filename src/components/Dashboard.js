@@ -182,13 +182,17 @@ const Dashboard = ({ user }) => {
         <div className="expanded-overlay" onClick={closeExpandedProject}>
           <div className="expanded-content" onClick={e => e.stopPropagation()}>
             <button className="close-button" onClick={closeExpandedProject}>×</button>
-            {expandedProject.images_url && (
+            {Array.isArray(expandedProject.images_url) && expandedProject.images_url.length > 0 && (
               <div className="expanded-image-container">
-                <img 
-                  src={expandedProject.images_url} 
-                  alt={expandedProject.title}
-                  className="expanded-image"
-                />
+                {expandedProject.images_url.map((img, idx) => (
+                  <img 
+                    key={idx}
+                    src={img}
+                    alt={expandedProject.title + ' ' + (idx + 1)}
+                    className="expanded-image"
+                    style={{ marginBottom: 4 }}
+                  />
+                ))}
               </div>
             )}
             <div className="expanded-details">
@@ -269,13 +273,17 @@ const Dashboard = ({ user }) => {
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => handleProjectClick(project)}
               >
-                {project.images_url && (
+                {Array.isArray(project.images_url) && project.images_url.length > 0 && (
                   <div className="image-container">
-                    <img 
-                      src={project.images_url} 
-                      alt={project.title}
-                      className="project-image"
-                    />
+                    {project.images_url.map((img, idx) => (
+                      <img 
+                        key={idx}
+                        src={img}
+                        alt={project.title + ' ' + (idx + 1)}
+                        className="project-image"
+                        style={{ marginBottom: 4 }}
+                      />
+                    ))}
                     <div className="image-overlay"></div>
                   </div>
                 )}

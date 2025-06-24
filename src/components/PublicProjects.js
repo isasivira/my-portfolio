@@ -69,13 +69,17 @@ const PublicProjects = () => {
                 className="project-card"
                 style={{ animationDelay: `${index * 0.1}s` }} /* Inline style for animation delay */
               >
-                {project.images_url && (
+                {Array.isArray(project.images_url) && project.images_url.length > 0 && (
                   <div className="image-container">
-                    <img 
-                      src={project.images_url} 
-                      alt={project.title}
-                      className="project-image"
-                    />
+                    {project.images_url.map((img, idx) => (
+                      <img 
+                        key={idx}
+                        src={img}
+                        alt={project.title + ' ' + (idx + 1)}
+                        className="project-image"
+                        style={{ marginBottom: 4 }}
+                      />
+                    ))}
                     <div className="image-overlay"></div>
                   </div>
                 )}

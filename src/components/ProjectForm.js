@@ -10,17 +10,23 @@ const ProjectForm = ({ onSubmit, initialValues = {
   description: '',
   platform_id: '',
   type_id: '',
-  images_url: '',
+  images_url: [],
   date_created: new Date().toISOString().split('T')[0]
 } }) => {
   const [platforms, setPlatforms] = useState([]);
   const [types, setTypes] = useState([]);
+  const [images, setImages] = useState(initialValues.images_url || []);
   const { values, handleChange, handleSubmit } = useForm(initialValues);
 
   useEffect(() => {
     console.log('ProjectForm initialValues:', initialValues);
     console.log('ProjectForm current values:', values);
   }, [initialValues, values]);
+
+  useEffect(() => {
+    setImages(initialValues.images_url || []);
+    // eslint-disable-next-line
+  }, [initialValues.id]);
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -48,10 +54,19 @@ const ProjectForm = ({ onSubmit, initialValues = {
     fetchOptions();
   }, []);
 
+  const handleImageChange = (idx, value) => {
+    const newImages = [...images];
+    newImages[idx] = value;
+    setImages(newImages);
+  };
+
+  const handleAddImage = () => setImages([...images, '']);
+  const handleRemoveImage = (idx) => setImages(images.filter((_, i) => i !== idx));
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted with values:', values);
-    onSubmit(values);
+    onSubmit({ ...values, images_url: images.filter(Boolean) });
   };
 
   return (
@@ -136,16 +151,21 @@ const ProjectForm = ({ onSubmit, initialValues = {
       </div>
 
       <div className="form-group">
-        <label htmlFor="images_url" className="label">Image URL</label>
-        <input
-          type="url"
-          id="images_url"
-          name="images_url"
-          value={values.images_url}
-          onChange={handleChange}
-          className="input"
-          placeholder="https://example.com/image.jpg"
-        />
+        <label className="label">Image URLs</label>
+        {images.map((img, idx) => (
+          <div key={idx} style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+            <input
+              type="url"
+              value={img}
+              onChange={e => handleImageChange(idx, e.target.value)}
+              className="input"
+              placeholder="https://example.com/image.jpg"
+              required
+            />
+            <button type="button" onClick={() => handleRemoveImage(idx)} style={{ color: 'red' }}>✕</button>
+          </div>
+        ))}
+        <Button type="button" onClick={handleAddImage} variant="secondary">Add Image</Button>
       </div>
 
       <div className="form-group">
